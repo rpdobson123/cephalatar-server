@@ -13,5 +13,8 @@
     "express": "^4.17.1",
     "jimp": "^0.9.3",
     "replace-color": "^2.1.0"
+  },
+  "engines": {
+    "node": "v10.15.3"
   }
 }
