@@ -20,13 +20,19 @@ const colors = [
     '#f1f1f1',
     '#ffdf9e',
     '#cc00cc',
+    '#f05e23',
+    '#68359c',
+    '#fdbb58',
+    '#f05e23',
+    '#cb4154',
+    '#aaa9ad',
 ];
 app.get('/:hashable', async function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
     const hashed = hash(req.params.hashable);
-    const color = colors[hashed.charCodeAt(0) % 5];
+    const color = colors[hashed.charCodeAt(0) % 12];
     const [base, legs, face, acc] = await Promise.all([
         getFileByName(`base`, color),
         getFileByName(`leg${(hashed.charCodeAt(1) % 4) + 1}`, color),
