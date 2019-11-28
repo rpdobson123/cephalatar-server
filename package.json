@@ -13,6 +13,7 @@
     "esm": "^3.2.25",
     "express": "^4.17.1",
     "jimp": "^0.9.3",
+    "object-hash": "^2.0.0",
     "replace-color": "^2.1.0"
   },
   "engines": {

@@ -1,4 +1,5 @@
 import express from 'express';
+import hash from 'object-hash';
 const replaceColor = require('replace-color')
 
 const app = express()
@@ -24,13 +25,13 @@ app.get('/:hashable', async function (req, res) {
     res.header("Access-Control-Allow-Origin", "*");
     res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
-    const hash = Buffer.from(req.params.hashable).toString('base64');
-    const color = colors[hash.charCodeAt(0) % 5];
+    const hashed = hash(req.params.hashable);
+    const color = colors[hashed.charCodeAt(0) % 5];
     const [base, legs, face, acc] = await Promise.all([
         getFileByName(`base`, color),
-        getFileByName(`leg${(hash.charCodeAt(1) % 4) + 1}`, color),
-        getFileByName(`face${(hash.charCodeAt(2) % 5) + 1}`, color),
-        getFileByName(`acc${(hash.charCodeAt(3) % 5) + 1}`, color)
+        getFileByName(`leg${(hashed.charCodeAt(1) % 4) + 1}`, color),
+        getFileByName(`face${(hashed.charCodeAt(2) % 5) + 1}`, color),
+        getFileByName(`acc${(hashed.charCodeAt(3) % 5) + 1}`, color)
     ]);
     const clonedImg = base;
     clonedImg.blit(legs, 0, 0);
