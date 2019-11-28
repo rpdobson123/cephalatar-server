@@ -21,6 +21,9 @@ const colors = [
     '#cc00cc',
 ];
 app.get('/:hashable', async function (req, res) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "X-Requested-With");
+
     const hash = Buffer.from(req.params.hashable).toString('base64');
     const color = colors[hash.charCodeAt(0) % 5];
     const [base, legs, face, acc] = await Promise.all([
